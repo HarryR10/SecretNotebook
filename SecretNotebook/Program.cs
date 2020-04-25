@@ -10,8 +10,10 @@ namespace SecretNotebook
         static void Main(string[] args)
         {
             var start = new MainMenuArea();
+            start.Redraw();
             var cp = new ChangePasswordArea(start);
-            cp.Execute();
+            cp.Redraw();
+            
         }
     }
 }

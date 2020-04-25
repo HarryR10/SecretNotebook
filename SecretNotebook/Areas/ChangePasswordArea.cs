@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SecretNotebook.Cryptography;
 using SecretNotebook.InputMethods;
 
 namespace SecretNotebook.Areas
@@ -9,13 +10,15 @@ namespace SecretNotebook.Areas
     {
         public override string Header { get => "Enter the new password"; }
 
-        private Area _previousArea;
+        public override Area PreviousArea { get; set; }
 
-        private string _password;
+        //private MainMenuArea _previousArea;
+
+        //private string _password;
 
         public ChangePasswordArea(Area previousArea)
         {
-            _previousArea = previousArea;
+            PreviousArea = previousArea;
 
             //запрос к файлу с хешем
 
@@ -29,11 +32,12 @@ namespace SecretNotebook.Areas
 
             //var currentCmd = AllKeysDictionary.Find(cmd);
 
-            _password = Console.ReadLine();
+            string password = Console.ReadLine();
+            var newHash = HashOperator.CreateHash(password);
+            var area = (MainMenuArea)PreviousArea;
+            area.Hash = newHash;
 
-            //хеширование и шифрование
-
-            _previousArea.Redraw();
+            //_previousArea.Redraw();
         }
     }
 }

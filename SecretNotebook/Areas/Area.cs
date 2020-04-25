@@ -4,21 +4,21 @@ using SecretNotebook.InputMethods;
 
 namespace SecretNotebook.Areas
 {
-    public class Area
+    public abstract class Area
     {
-        public virtual string Header { get => ""; }
+        public abstract string Header { get; }
 
         //public abstract Dictionary<Key, Action> UsingKeys { get; }
+
+        public abstract Area PreviousArea { get; set; }
 
         public virtual void Redraw()
         {
             Console.Clear();
             Console.WriteLine(Header);
-            Execute();
+            //Execute();
         }
 
-        public virtual void Execute()
-        {
-        }
+        public abstract void Execute();
     }
 }
