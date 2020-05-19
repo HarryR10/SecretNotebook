@@ -83,9 +83,9 @@ namespace SecretNotebook.Model
             {
                 return ProtectedData.Protect(data, aditionalEntropy, DataProtectionScope.CurrentUser);
             }
-            catch (CryptographicException)
+            catch (CryptographicException e)
             {
-                return null;
+                throw e;
             }
         }
 
@@ -95,9 +95,9 @@ namespace SecretNotebook.Model
             {
                 return ProtectedData.Unprotect(data, aditionalEntropy, DataProtectionScope.CurrentUser);
             }
-            catch (CryptographicException)
+            catch (CryptographicException e)
             {
-                return null;
+                throw e;
             }
         }
     }
