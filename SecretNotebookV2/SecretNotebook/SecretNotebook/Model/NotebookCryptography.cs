@@ -43,5 +43,62 @@ namespace SecretNotebook.Model
 
             return decrypted;
         }
+
+        public static byte[] GetHash(byte[] data)
+        {
+            using (SHA256 sha = SHA256.Create())
+            {
+                return sha.ComputeHash(data);
+            }
+        }
+
+        public static byte[] GetHash(string str)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(str);
+            return GetHash(bytes);
+        }
+
+        public static bool CompareHash(byte[] first, byte[] second)
+        {
+            if (first.Length != second.Length) return false;
+
+            for(int i = 0; i < first.Length; i++)
+            {
+                if (first[i] != second[i]) return false;
+            }
+
+            return true;
+        }
+
+        public static bool CompareHash(string str, byte[] bytes)
+        {
+            byte[] fromString = GetHash(str);
+
+            return CompareHash(fromString, bytes);
+        }
+
+        public static byte[] ProtectHashKey(byte[] data, byte[] aditionalEntropy)
+        {
+            try
+            {
+                return ProtectedData.Protect(data, aditionalEntropy, DataProtectionScope.CurrentUser);
+            }
+            catch (CryptographicException)
+            {
+                return null;
+            }
+        }
+
+        public static byte[] UnprotectHashKey(byte[] data, byte[] aditionalEntropy)
+        {
+            try
+            {
+                return ProtectedData.Unprotect(data, aditionalEntropy, DataProtectionScope.CurrentUser);
+            }
+            catch (CryptographicException)
+            {
+                return null;
+            }
+        }
     }
 }

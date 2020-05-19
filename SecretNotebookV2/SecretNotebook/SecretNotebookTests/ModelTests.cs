@@ -23,5 +23,15 @@ namespace SecretNotebookTests
                 CollectionAssert.AreEqual(data, decrypted);
             }
         }
+
+        [Test]
+        public void HashingCompareHashWith_GetHash_CompareHash()
+        {
+            string password = "password";
+            string wrongPsw = "wrong";
+            var hash = NotebookCryptography.GetHash(password);
+            Assert.IsTrue(NotebookCryptography.CompareHash(password, hash));
+            Assert.IsFalse(NotebookCryptography.CompareHash(wrongPsw, hash));
+        }
     }
 }
