@@ -6,12 +6,17 @@ using System.Text;
 
 namespace SecretNotebook.Model
 {
-    class ModelSource
+    public class ModelSource
     {
-
         private List<Note> _notes = new List<Note>();
 
-        public List<Note> GetNotes() => _notes;
+        public List<Note> GetNotes => _notes;
+
+        public void AddNote(string name, string txt)
+        {
+            var date = DateTime.Now;
+            _notes.Add(new Note(date, name, txt));
+        }
 
         public void SerializeNotes()
         {
@@ -45,10 +50,13 @@ namespace SecretNotebook.Model
 
             var binFormatter = new BinaryFormatter();
 
-            using (var memory = new MemoryStream())
+            using (var memory = new MemoryStream(decodedBytes))
             {
-                memory.Write(decodedBytes, 0, decodedBytes.Length);
-                _notes = binFormatter.Deserialize(memory) as List<Note>;
+                var noteList = binFormatter.Deserialize(memory) as List<Note>;
+                if (noteList != null)
+                {
+                    _notes = noteList;
+                }
             }
         }
     }

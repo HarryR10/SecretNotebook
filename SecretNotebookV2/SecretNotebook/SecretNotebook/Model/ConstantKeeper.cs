@@ -11,12 +11,20 @@ namespace SecretNotebook.Model
 
         public const string PathToKeys = @"hash.key";
 
-        internal static byte[] Entropy = new byte[0];
+        public static byte[] Entropy = new byte[0];
 
-        //?
-        // BlockSize / 8
         internal static byte[] IV = new byte[16];
 
         internal static byte[] Key;
+
+        public static void SetKey(byte[] key)
+        {
+            Key = key;
+        }
+
+        public static void SetIV(byte[] iv)
+        {
+            IV = iv;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace SecretNotebook.Model
     {
         public static bool SaveHashKey(byte[] hash, byte[] key)
         {
-            byte[] allBytes = hash.Union(key).ToArray();
+            byte[] allBytes = hash.Concat(key).ToArray();
 
             using (FileStream newSource = new FileStream(ConstantKeeper.PathToKeys, FileMode.Create, FileAccess.Write))
             {
@@ -61,9 +61,11 @@ namespace SecretNotebook.Model
             else
             {
                 byte[] key = new byte[bytes.Length - 32];
-                for (int i = 31; i < bytes.Length; i++)
+                for (int i = 32, j = 0;
+                    i < bytes.Length;
+                    i++, j++)
                 {
-                    key[i] = bytes[i];
+                    key[j] = bytes[i];
                 }
                 return key;
             }
@@ -71,7 +73,7 @@ namespace SecretNotebook.Model
 
         public static bool SaveNotesIV(byte[] data)
         {
-            byte[] allBytes = data.Union(ConstantKeeper.IV).ToArray();
+            byte[] allBytes = data.Concat(ConstantKeeper.IV).ToArray();
             using (FileStream newSource = new FileStream(ConstantKeeper.PathToNotes, FileMode.Create, FileAccess.Write))
             {
                 try
@@ -109,9 +111,11 @@ namespace SecretNotebook.Model
             }
 
             ConstantKeeper.IV = new byte[16];
-            for (int i = bytes.Length - 17; i < bytes.Length; i++)
+            for (int i = bytes.Length - 16, j = 0;
+                i < bytes.Length; 
+                i++, j++)
             {
-                ConstantKeeper.IV[i] = bytes[i];
+                ConstantKeeper.IV[j] = bytes[i];
             }
 
             Array.Resize(ref bytes, bytes.Length - 16);

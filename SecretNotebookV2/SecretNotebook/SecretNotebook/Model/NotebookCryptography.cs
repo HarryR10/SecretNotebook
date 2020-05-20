@@ -100,5 +100,23 @@ namespace SecretNotebook.Model
                 throw e;
             }
         }
+
+        public static byte[] GenerateKey()
+        {
+            using (Aes crntAes = Aes.Create())
+            {
+                crntAes.GenerateKey();
+                return crntAes.Key;
+            }
+        }
+
+        public static byte[] GenerateIV()
+        {
+            using (Aes crntAes = Aes.Create())
+            {
+                crntAes.GenerateIV();
+                return crntAes.IV;
+            }
+        }
     }
 }
