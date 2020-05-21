@@ -61,7 +61,7 @@ namespace SecretNotebookTests
 
             source.SerializeNotes();
             source.DeSerializeNotes();
-            var result = source.GetNotes;
+            var result = source.Notes;
             var name = result[0].Name;
             var txt = result[0].Txt;
 

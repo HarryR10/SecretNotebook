@@ -10,7 +10,7 @@ namespace SecretNotebook.Model
     {
         private List<Note> _notes = new List<Note>();
 
-        public List<Note> GetNotes => _notes;
+        public List<Note> Notes => _notes;
 
         public void AddNote(string name, string txt)
         {
