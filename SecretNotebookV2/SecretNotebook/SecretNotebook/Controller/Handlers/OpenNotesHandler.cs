@@ -4,13 +4,13 @@ using System.Text;
 
 namespace SecretNotebook.Controller.Handlers
 {
-    public class DecodeHandler
+    class OpenNotesHandler
     {
-        public event EventHandler<EventArgs> EnterPassword;
+        public event EventHandler<EventArgs> OpenNotes;
 
-        public void OnEnterPassword(EventArgs e)
+        public void OnOpenNotes(EventArgs e)
         {
-            EventHandler<EventArgs> handler = EnterPassword;
+            EventHandler<EventArgs> handler = OpenNotes;
             if (handler != null)
             {
                 handler(this, e);

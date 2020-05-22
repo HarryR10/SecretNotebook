@@ -9,7 +9,10 @@ namespace SecretNotebook
     {
         static void Main(string[] args)
         {
-            ConstantKeeper.CurrentArea = new Area("Вход в программу...", Controls.CheckPassword);
+            ConstantKeeper.CurrentArea = new Area("Вход в программу...", Controls.Authentification);
+            ConstantKeeper.CurrentArea.Run();
+
+            ConstantKeeper.CurrentArea = new MenuArea("Главное меню:", Controls.OpenMenu);
             ConstantKeeper.CurrentArea.Run();
         }
     }

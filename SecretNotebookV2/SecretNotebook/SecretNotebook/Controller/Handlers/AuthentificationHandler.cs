@@ -4,13 +4,13 @@ using System.Text;
 
 namespace SecretNotebook.Controller.Handlers
 {
-    class FirstLaunchHandler
+    public class AuthentificationHandler
     {
-        public event EventHandler<EventArgs> FirstLaunch;
+        public event EventHandler<EventArgs> EnterPassword;
 
-        public void OnFirstLaunch(EventArgs e)
+        public void OnEnterPassword(EventArgs e)
         {
-            EventHandler<EventArgs> handler = FirstLaunch;
+            EventHandler<EventArgs> handler = EnterPassword;
             if (handler != null)
             {
                 handler(this, e);

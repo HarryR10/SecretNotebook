@@ -80,7 +80,7 @@ namespace SecretNotebook.Model
                 {
                     newSource.Write(allBytes, 0, allBytes.Length);
                 }
-                catch //TODO: добавить exception, или привести к void
+                catch(IOException)
                 {
                     return false;
                 }
